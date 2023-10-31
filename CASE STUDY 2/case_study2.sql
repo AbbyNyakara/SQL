@@ -7,8 +7,8 @@ USE pizza_runner;
 # Create the runners table 
 CREATE TABLE runners(
 runner_id INT NOT NULL ,
-registration_date DATE
-#FOREIGN KEY (runner_id) REFERENCES runner_orders(runner_id)
+registration_date DATE,
+PRIMARY KEY (runner_id)
 );
 
 INSERT INTO runners
@@ -19,7 +19,6 @@ VALUES
 (3, '2021-01-08'),
 (4, '2021-01-15');
  
-
 # Create the Pizza Toppings table
 CREATE TABLE pizza_toppings(
 topping_id INT NOT NULL,
@@ -50,8 +49,8 @@ runner_id INT,
 pickup_time VARCHAR(19),
 distance VARCHAR(7),
 duration VARCHAR(10),
-cancellation VARCHAR(23)
-#FOREIGN KEY(order_id) REFERENCES customer_orders(order_id)
+cancellation VARCHAR(23),
+PRIMARY KEY (order_id, runner_id)
 );
 
 INSERT INTO runner_orders
@@ -69,6 +68,7 @@ VALUES
 
 
 # Create the customer orders table 
+# Contains duplicate data
 
 CREATE TABLE customer_orders(
 order_id INT NOT NULL,
@@ -77,8 +77,9 @@ pizza_id INT,
 exclusions VARCHAR(4),
 extras VARCHAR(4),
 order_date TIMESTAMP
-#FOREIGN KEY (pizza_id) REFERENCES pizza_recipe(pizza_id)
 );
+
+
 
 INSERT INTO customer_orders
 VALUES
@@ -102,8 +103,8 @@ VALUES
 
 CREATE TABLE pizza_names(
 pizza_id INT NOT NULL, 
-pizza_name TEXT
-#FOREIGN KEY (pizza_id) REFERENCES customer_orders(pizza_id)
+pizza_name TEXT,
+PRIMARY KEY(pizza_id)
 );
 
 INSERT INTO pizza_names 
@@ -115,8 +116,8 @@ VALUES
 
 CREATE TABLE pizza_recipes(
 pizza_id INT NOT NULL,
-toppings TEXT
-#FOREIGN KEY (pizza_id) REFERENCES customer_orders(pizza_id)
+toppings TEXT,
+PRIMARY KEY (pizza_id)
 );
 
 INSERT INTO pizza_recipes
@@ -124,4 +125,6 @@ VALUES
   (1, '1, 2, 3, 4, 5, 6, 8, 10'),
   (2, '4, 6, 7, 9, 11, 12');
 
-select * from customer_orders;
+
+
+
