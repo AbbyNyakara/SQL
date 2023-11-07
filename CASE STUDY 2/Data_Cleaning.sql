@@ -4,7 +4,7 @@ use pizza_runner;
 show tables;
 
 # Customer_orders table
-drop table customer_orders;
+SET SQL_SAFE_UPDATES = 0;
 
 # Exclusions column
 UPDATE customer_orders
@@ -16,11 +16,6 @@ UPDATE customer_orders
 SET extras = NULL 
 WHERE extras = 'null' OR extras = '';
 
-# ADD THE PRIMARY KEY THAT THE FOREIGN KEYS IN OTHER TABLES WILL REFERENCE 
-
-ALTER TABLE customer_orders
-ADD CONSTRAINT pk1_customer_orders
-PRIMARY KEY (order_id);
 
 # pizza_names table
 
@@ -30,9 +25,33 @@ FOREIGN KEY (pizza_id)
 REFERENCES customer_orders(pizza_id);
 
 
+# Runner orders table 
+
+UPDATE runner_orders
+SET pickup_time = NULL
+WHERE pickup_time = 'null' OR  pickup_time = '';
+
+UPDATE runner_orders
+SET distance = NULL
+WHERE distance = 'null';
+
+UPDATE runner_orders
+SET duration = NULL
+WHERE duration = 'null';
+
+UPDATE runner_orders
+SET cancellation = NULL
+WHERE cancellation = 'null' OR cancellation = '';
+
+SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS 
+  WHERE table_name = 'runner_orders';
+
+select * from runner_orders;
 
 
-select * from pizza_recipes;
+
+
+
 
 
 
