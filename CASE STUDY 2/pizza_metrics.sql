@@ -77,14 +77,6 @@ GROUP BY day_of_week;
 ## This shows the columns, the data types... 
 describe customer_orders;
 
-
-
-
-
-
-
-
-
 select * from customer_orders;
 select * from runner_orders;
 
